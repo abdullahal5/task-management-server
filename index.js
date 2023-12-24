@@ -6,7 +6,11 @@ const port = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 
-app.use(cors())
+app.use(
+  cors({
+    origin: ["https://sdfaspremium-class.surge.sh", "http://localhost:5173"],
+  })
+);
 app.use(express.json())
 
 app.get("/", (req, res) =>{
@@ -39,7 +43,6 @@ async function run() {
         const result = await taskCollection.find().toArray()
         res.send(result)
     })
-
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
